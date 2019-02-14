@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    this is index  server
+    <script>
+        function jsonpCallback(data){
+            console.log(data,'data')
+        }
+        let defaultStatus = {callback:"jsonpCallback"}
+        function format(data){
+            let temp = ""
+            for(var params in data){
+                temp +=  `${encodeURIComponent(params)}=${encodeURIComponent(data[params])}&`
+            }
+            return temp
+        }
+        function jsonp(url,data,opt=defaultStatus){
+            oScript = document.createElement('script')
+            let hasCallback = url.indexOf("callback")
+            url += url.indexOf("?") == -1 ? "?" + format(data) : format(data) 
+
+            if(hasCallback == -1){
+                url += `callback=${opt.callback}`
+            }
+            oScript.setAttribute('src',url)
+            
+            document.body.appendChild(oScript)
+        }
+        let url = "http://localhost:3000"
+        let data = {
+            username:'yl',
+            password:'666'
+        }
+        let opt = {
+            callback:'jsonpCallback'
+        }
+        jsonp(url,data,opt)
+    </script>
+</body>
+</html>
