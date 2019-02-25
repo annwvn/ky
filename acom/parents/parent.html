@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <p>我是父页面</p>
+  <button onclick="helloworld()"> hello</button>
+</body>
+<script type="text/javascript">
+  function helloworld() {
+    var ifr = document.createElement('iframe');
+    // console.log(ifr);
+    ifr.src = 'http://localhost:6969';
+      ifr.onload = function () {
+        document.getElementsByTagName('p')[0].innerHTML = ifr.contentWindow.name;
+      }
+      ifr.src = 'http://localhost:8888';
+      // document.domain = '';
+    document.body.appendChild(ifr);
+  }
+
+</script>
+
+</html>
